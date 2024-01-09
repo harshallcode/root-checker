@@ -76,7 +76,6 @@
     }
   },
   "dependencies": {
-    "npmignore": "^0.3.1",
-    "root-checker": "^0.0.1"
+    "npmignore": "^0.3.1"
   }
 }
