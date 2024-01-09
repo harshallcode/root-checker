@@ -22,17 +22,24 @@ public class rootCheckerPlugin extends Plugin {
 
     @PluginMethod()
     public boolean checkRoot() {
-        try {
-            java.util.Scanner s = new java.util.Scanner(
-                Runtime.getRuntime().exec(new String[] { "/system/bin/su", "-c", "cd / && ls" }).getInputStream()
-            )
-                .useDelimiter("\\A");
-            call.getBoolean("isRooted",!(s.hasNext() ? s.next() : "").equals(""));
-        } catch (IOException e) {
-            e.printStackTrace();
-
+        if (new RootBeer(this).isRooted()) {
+            call.getBoolean("isRooted",true)
+        } else {
+            call.getBoolean("isRooted",false)
         }
-        call.getBoolean("isRooted",false)
-        call.resolve()
+        // try {
+        //     java.util.Scanner s = new java.util.Scanner(
+        //         Runtime.getRuntime().exec(new String[] { "/system/bin/su", "-c", "cd / && ls" }).getInputStream()
+        //     )
+        //         .useDelimiter("\\A");
+        //     call.getBoolean("isRooted",!(s.hasNext() ? s.next() : "").equals(""));
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+
+        // }
+        // call.getBoolean("isRooted",false)
+        // call.resolve()
     }
+
+    
 }

@@ -1,6 +1,6 @@
 {
   "name": "root-checker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This plugin is used to detect whether a given device is rooted or not",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -74,5 +74,9 @@
     "android": {
       "src": "android"
     }
+  },
+  "dependencies": {
+    "npmignore": "^0.3.1",
+    "root-checker": "^0.0.1"
   }
 }
