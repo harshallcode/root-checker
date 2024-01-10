@@ -14,7 +14,7 @@ npx cap sync
 <docgen-index>
 
 * [`echo(...)`](#echo)
-* [`checkRoot()`](#checkroot)
+* [`checkRoot(...)`](#checkroot)
 
 </docgen-index>
 
@@ -36,11 +36,15 @@ echo(options: { value: string; }) => Promise<{ value: string; }>
 --------------------
 
 
-### checkRoot()
+### checkRoot(...)
 
 ```typescript
-checkRoot() => Promise<void>
+checkRoot(options: { isRooted: boolean; }) => Promise<void>
 ```
+
+| Param         | Type                                |
+| ------------- | ----------------------------------- |
+| **`options`** | <code>{ isRooted: boolean; }</code> |
 
 --------------------
 
