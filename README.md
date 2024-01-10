@@ -13,38 +13,24 @@ npx cap sync
 
 <docgen-index>
 
-* [`echo(...)`](#echo)
-* [`checkRoot(...)`](#checkroot)
+* [`checkRoot()`](#checkroot)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### echo(...)
+### checkRoot()
 
 ```typescript
-echo(options: { value: string; }) => Promise<{ value: string; }>
+checkRoot() => Promise<{ isRooted: string; }>
 ```
 
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
+Get information about device root status
 
-**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+**Returns:** <code>Promise&lt;{ isRooted: string; }&gt;</code>
 
---------------------
-
-
-### checkRoot(...)
-
-```typescript
-checkRoot(options: { isRooted: boolean; }) => Promise<void>
-```
-
-| Param         | Type                                |
-| ------------- | ----------------------------------- |
-| **`options`** | <code>{ isRooted: boolean; }</code> |
+**Since:** 1.0.0
 
 --------------------
 

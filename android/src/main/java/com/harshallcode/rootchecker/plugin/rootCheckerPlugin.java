@@ -11,21 +11,11 @@ import com.scottyab.rootbeer.RootBeer;
 public class rootCheckerPlugin extends Plugin {
 
     private final rootChecker implementation = new rootChecker();
-
-    @PluginMethod()
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
-    }
-
+    
     @PluginMethod()
     public void checkRoot(PluginCall call) {
-        call.getBoolean("isRooted", new RootBeer(getContext()).isRooted());
-        call.resolve();
+        JSObject ret = new JSObject();
+        ret.put("isRooted",new RootBeer(getContext()).isRooted());
+        call.resolve(ret);
     }
-
-    
 }
