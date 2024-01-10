@@ -5,11 +5,12 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.scottyab.rootbeer.RootBeer;
 
 @CapacitorPlugin(name = "rootChecker")
 public class rootCheckerPlugin extends Plugin {
 
-    private rootChecker implementation = new rootChecker();
+    private final rootChecker implementation = new rootChecker();
 
     @PluginMethod()
     public void echo(PluginCall call) {
@@ -21,24 +22,9 @@ public class rootCheckerPlugin extends Plugin {
     }
 
     @PluginMethod()
-    public boolean checkRoot() {
-        if (new RootBeer(this).isRooted()) {
-            call.getBoolean("isRooted",true)
-        } else {
-            call.getBoolean("isRooted",false)
-        }
-        // try {
-        //     java.util.Scanner s = new java.util.Scanner(
-        //         Runtime.getRuntime().exec(new String[] { "/system/bin/su", "-c", "cd / && ls" }).getInputStream()
-        //     )
-        //         .useDelimiter("\\A");
-        //     call.getBoolean("isRooted",!(s.hasNext() ? s.next() : "").equals(""));
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-
-        // }
-        // call.getBoolean("isRooted",false)
-        // call.resolve()
+    public void checkRoot(PluginCall call) {
+        call.getBoolean("isRooted", new RootBeer(getContext()).isRooted());
+        call.resolve();
     }
 
     

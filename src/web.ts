@@ -7,8 +7,7 @@ export class rootCheckerWeb extends WebPlugin implements rootCheckerPlugin {
     console.log('ECHO', options);
     return options;
   }
-  async checkRoot():Promise<void>{
-    console.log("Check Root");
-    
+  async checkRoot(options: { isRooted: boolean }): Promise<void> {
+    console.log(options);
   }
 }

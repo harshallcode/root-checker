@@ -1,6 +1,6 @@
 {
   "name": "root-checker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "This plugin detects whether a given native device is rooted or not",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
