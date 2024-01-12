@@ -4,8 +4,7 @@ import android.util.Log;
 
 public class rootChecker {
 
-    public String echo(String value) {
-        Log.i("Echo", value);
+    public boolean checkRoot(boolean value) {
         return value;
     }
 }

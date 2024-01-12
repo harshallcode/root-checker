@@ -4,5 +4,5 @@ export interface rootCheckerPlugin {
    *
    * @since 1.0.0
    */
-  checkRoot(): Promise<{ isRooted: string }>;
+  checkRoot(): Promise<{ isRooted: boolean }>;
 }
