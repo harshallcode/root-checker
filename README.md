@@ -23,12 +23,12 @@ npx cap sync
 ### checkRoot()
 
 ```typescript
-checkRoot() => Promise<{ isRooted: string; }>
+checkRoot() => Promise<{ isRooted: boolean; }>
 ```
 
 Get information about device root status
 
-**Returns:** <code>Promise&lt;{ isRooted: string; }&gt;</code>
+**Returns:** <code>Promise&lt;{ isRooted: boolean; }&gt;</code>
 
 **Since:** 1.0.0
 
