@@ -1,5 +1,8 @@
 package com.harshallcode.rootchecker.plugin;
 
+import android.content.Context;
+import android.provider.Settings;
+
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -56,4 +59,15 @@ public class rootCheckerPlugin extends Plugin {
     private boolean checkRootMethod4() {
         return new RootBeer(getContext()).isRooted();
     }
+
+    @PluginMethod()
+    public void isDeveloperModeEnable(PluginCall call)  {
+        JSObject ret = new JSObject();
+        int devOptionsStatus = Settings.Secure.getInt(getContext().getContentResolver(),
+        Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0);
+        boolean isEnabled = (devOptionsStatus == 1);
+        ret.put("isEnabled", isEnabled);
+        call.resolve(ret);
+    }
+
 }

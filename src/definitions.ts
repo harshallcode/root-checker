@@ -5,4 +5,5 @@ export interface rootCheckerPlugin {
    * @since 1.0.0
    */
   checkRoot(): Promise<{ isRooted: boolean }>;
+  isDeveloperModeEnable(): Promise<{ isEnabled: boolean }>;
 }
