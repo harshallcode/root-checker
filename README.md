@@ -27,7 +27,7 @@ npx cap sync
 checkRoot() => Promise<{ isRooted: boolean; }>
 ```
 
-Get information about device root status.
+Get information about device root status
 
 **Returns:** <code>Promise&lt;{ isRooted: boolean; }&gt;</code>
 
@@ -41,8 +41,6 @@ Get information about device root status.
 ```typescript
 isDeveloperModeEnable() => Promise<{ isEnabled: boolean; }>
 ```
-
-Get whether developer mode is enabled or not in a device.
 
 **Returns:** <code>Promise&lt;{ isEnabled: boolean; }&gt;</code>
 
