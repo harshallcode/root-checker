@@ -9,21 +9,34 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.scottyab.rootbeer.RootBeer;
+import com.scottyab.rootbeer.util.QLog;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 @CapacitorPlugin(name = "rootChecker")
 public class rootCheckerPlugin extends Plugin {
 
     private final rootChecker implementation = new rootChecker();
+    static final String[] pathsThatShouldNotBeWritable = {
+            "/system",
+            "/system/bin",
+            "/system/sbin",
+            "/system/xbin",
+            "/vendor/bin",
+            "/sbin",
+            "/etc",
+    };
 
     @PluginMethod()
     public void checkRoot(PluginCall call) {
         JSObject ret = new JSObject();
-        var isRooted = checkRootMethod1() || checkRootMethod2() || checkRootMethod3() || checkRootMethod4();
+        var isRooted = checkRootMethod1() && checkRootMethod2() && checkRootMethod3() && checkRootMethod4() && checkRootMethod5();
         ret.put("isRooted", isRooted);
         call.resolve(ret);
     }
@@ -58,6 +71,73 @@ public class rootCheckerPlugin extends Plugin {
 
     private boolean checkRootMethod4() {
         return new RootBeer(getContext()).isRooted();
+    }
+
+    private boolean checkRootMethod5() {
+        boolean result = false;
+
+        String[] lines = mountReader();
+
+        if (lines == null) {
+            return false;
+        }
+        String[] args = new String[0];
+        int sdkVersion = android.os.Build.VERSION.SDK_INT;
+
+        for (String line : lines) {
+
+            args = line.split(" ");
+
+            if ((sdkVersion <= android.os.Build.VERSION_CODES.M && args.length < 4)
+                    || (sdkVersion > android.os.Build.VERSION_CODES.M && args.length < 6))
+                QLog.e("Error formatting mount line: " + line);
+            continue;
+        }
+
+        String mountPoint;
+        String mountOptions;
+
+        if (sdkVersion > android.os.Build.VERSION_CODES.M) {
+            mountPoint = args[2];
+            mountOptions = args[5];
+        } else {
+            mountPoint = args[1];
+            mountOptions = args[3];
+        }
+
+        for (String pathToCheck : pathsThatShouldNotBeWritable) {
+            if (mountPoint.equalsIgnoreCase(pathToCheck)) {
+
+                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.M) {
+                    mountOptions = mountOptions.replace("(", "");
+                    mountOptions = mountOptions.replace(")", "");
+
+                }
+
+                for (String option : mountOptions.split(",")) {
+
+                    if (option.equalsIgnoreCase("rw")) {
+//                        QLog.v(pathToCheck + " path is mounted with rw permissions! " + line);
+                        result = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private String[] mountReader() {
+        try {
+            InputStream inputstream = Runtime.getRuntime().exec("cat /proc/mounts").getInputStream();
+            if (inputstream == null)
+                return null;
+            String propVal = new Scanner(inputstream).useDelimiter("\\A").next();
+            return propVal.split("\n");
+        } catch (IOException | NoSuchElementException e) {
+            QLog.e(e);
+            return null;
+        }
     }
 
     @PluginMethod()

@@ -14,6 +14,7 @@ npx cap sync
 <docgen-index>
 
 * [`checkRoot()`](#checkroot)
+* [`isDeveloperModeEnable()`](#isdevelopermodeenable)
 
 </docgen-index>
 
@@ -26,11 +27,24 @@ npx cap sync
 checkRoot() => Promise<{ isRooted: boolean; }>
 ```
 
-Get information about device root status
+Get information about device root status.
 
 **Returns:** <code>Promise&lt;{ isRooted: boolean; }&gt;</code>
 
 **Since:** 1.0.0
+
+--------------------
+
+
+### isDeveloperModeEnable()
+
+```typescript
+isDeveloperModeEnable() => Promise<{ isEnabled: boolean; }>
+```
+
+Get whether developer mode is enabled or not in a device.
+
+**Returns:** <code>Promise&lt;{ isEnabled: boolean; }&gt;</code>
 
 --------------------
 
