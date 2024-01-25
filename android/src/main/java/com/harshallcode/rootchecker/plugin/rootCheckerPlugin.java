@@ -1,6 +1,5 @@
 package com.harshallcode.rootchecker.plugin;
 
-import android.content.Context;
 import android.provider.Settings;
 
 import com.getcapacitor.JSObject;
@@ -22,7 +21,7 @@ import java.util.Scanner;
 @CapacitorPlugin(name = "rootChecker")
 public class rootCheckerPlugin extends Plugin {
 
-    private final rootChecker implementation = new rootChecker();
+   private final rootChecker implementation = new rootChecker();
     static final String[] pathsThatShouldNotBeWritable = {
             "/system",
             "/system/bin",
@@ -36,7 +35,7 @@ public class rootCheckerPlugin extends Plugin {
     @PluginMethod()
     public void checkRoot(PluginCall call) {
         JSObject ret = new JSObject();
-        var isRooted = checkRootMethod1() && checkRootMethod2() && checkRootMethod3() && checkRootMethod4() && checkRootMethod5();
+        var isRooted = checkRootMethod1() || checkRootMethod2() || checkRootMethod3() || checkRootMethod4() || checkRootMethod5();
         ret.put("isRooted", isRooted);
         call.resolve(ret);
     }
@@ -91,7 +90,6 @@ public class rootCheckerPlugin extends Plugin {
             if ((sdkVersion <= android.os.Build.VERSION_CODES.M && args.length < 4)
                     || (sdkVersion > android.os.Build.VERSION_CODES.M && args.length < 6))
                 QLog.e("Error formatting mount line: " + line);
-            continue;
         }
 
         String mountPoint;
@@ -111,13 +109,11 @@ public class rootCheckerPlugin extends Plugin {
                 if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.M) {
                     mountOptions = mountOptions.replace("(", "");
                     mountOptions = mountOptions.replace(")", "");
-
                 }
-
                 for (String option : mountOptions.split(",")) {
 
                     if (option.equalsIgnoreCase("rw")) {
-//                        QLog.v(pathToCheck + " path is mounted with rw permissions! " + line);
+                        // QLog.v(pathToCheck + " path is mounted with rw permissions! " + line);
                         result = true;
                         break;
                     }
