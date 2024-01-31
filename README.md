@@ -15,6 +15,8 @@ npx cap sync
 
 * [`checkRoot()`](#checkroot)
 * [`isDeveloperModeEnable()`](#isdevelopermodeenable)
+* [`isEmulatorPresent()`](#isemulatorpresent)
+* [`getCpuArchitecture()`](#getcpuarchitecture)
 
 </docgen-index>
 
@@ -43,6 +45,28 @@ isDeveloperModeEnable() => Promise<{ isEnabled: boolean; }>
 ```
 
 **Returns:** <code>Promise&lt;{ isEnabled: boolean; }&gt;</code>
+
+--------------------
+
+
+### isEmulatorPresent()
+
+```typescript
+isEmulatorPresent() => Promise<{ isEmulator: boolean; }>
+```
+
+**Returns:** <code>Promise&lt;{ isEmulator: boolean; }&gt;</code>
+
+--------------------
+
+
+### getCpuArchitecture()
+
+```typescript
+getCpuArchitecture() => Promise<{ cpuArch: string; }>
+```
+
+**Returns:** <code>Promise&lt;{ cpuArch: string; }&gt;</code>
 
 --------------------
 

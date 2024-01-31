@@ -6,4 +6,6 @@ export interface rootCheckerPlugin {
    */
   checkRoot(): Promise<{ isRooted: boolean }>;
   isDeveloperModeEnable(): Promise<{ isEnabled: boolean }>;
+  isEmulatorPresent(): Promise<{ isEmulator: boolean }>;
+  getCpuArchitecture(): Promise<{ cpuArch: string }>;
 }
