@@ -17,6 +17,7 @@ npx cap sync
 * [`isDeveloperModeEnable()`](#isdevelopermodeenable)
 * [`isEmulatorPresent()`](#isemulatorpresent)
 * [`getCpuArchitecture()`](#getcpuarchitecture)
+* [`openDeveloperSetting()`](#opendevelopersetting)
 
 </docgen-index>
 
@@ -44,7 +45,11 @@ Get information about device root status
 isDeveloperModeEnable() => Promise<{ isEnabled: boolean; }>
 ```
 
+Get whether developer mode is enabled on user device or not
+
 **Returns:** <code>Promise&lt;{ isEnabled: boolean; }&gt;</code>
+
+**Since:** 1.0.0
 
 --------------------
 
@@ -55,7 +60,11 @@ isDeveloperModeEnable() => Promise<{ isEnabled: boolean; }>
 isEmulatorPresent() => Promise<{ isEmulator: boolean; }>
 ```
 
+Get whether the app is being run on an emulator or not
+
 **Returns:** <code>Promise&lt;{ isEmulator: boolean; }&gt;</code>
+
+**Since:** 1.0.0
 
 --------------------
 
@@ -66,7 +75,24 @@ isEmulatorPresent() => Promise<{ isEmulator: boolean; }>
 getCpuArchitecture() => Promise<{ cpuArch: string; }>
 ```
 
+Get information about CPU architecture
+
 **Returns:** <code>Promise&lt;{ cpuArch: string; }&gt;</code>
+
+**Since:** 1.1.0
+
+--------------------
+
+
+### openDeveloperSetting()
+
+```typescript
+openDeveloperSetting() => Promise<void>
+```
+
+Redirect to user's device's developer setting, usually to turn off developer mode
+
+**Since:** 1.2.0
 
 --------------------
 

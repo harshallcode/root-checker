@@ -1,5 +1,9 @@
 package com.harshallcode.rootchecker.plugin;
 
+
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -116,7 +120,6 @@ public class rootCheckerPlugin extends Plugin {
                 for (String option : mountOptions.split(",")) {
 
                     if (option.equalsIgnoreCase("rw")) {
-                        // QLog.v(pathToCheck + " path is mounted with rw permissions! " + line);
                         result = true;
                         break;
                     }
@@ -172,5 +175,11 @@ public class rootCheckerPlugin extends Plugin {
         JSObject ret = new JSObject();
         ret.put("cpuArch", System.getProperty("os.arch"));
         call.resolve(ret);
+    }
+
+    @PluginMethod()
+    public void openDeveloperSetting(PluginCall call) {
+        startActivity(getContext(),new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS),null);
+        call.resolve();
     }
 }

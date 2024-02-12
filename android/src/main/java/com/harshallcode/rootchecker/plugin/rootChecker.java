@@ -15,4 +15,5 @@ public class rootChecker {
     public int getCpuArchitecture(int value) {
         return value;
     }
+    public int openDeveloperSetting(int value){return value;}
 }
