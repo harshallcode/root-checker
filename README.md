@@ -18,6 +18,7 @@ npx cap sync
 * [`isEmulatorPresent()`](#isemulatorpresent)
 * [`getCpuArchitecture()`](#getcpuarchitecture)
 * [`openDeveloperSetting()`](#opendevelopersetting)
+* [`isADBEnabled()`](#isadbenabled)
 
 </docgen-index>
 
@@ -93,6 +94,21 @@ openDeveloperSetting() => Promise<void>
 Redirect to user's device's developer setting, usually to turn off developer mode
 
 **Since:** 1.2.0
+
+--------------------
+
+
+### isADBEnabled()
+
+```typescript
+isADBEnabled() => Promise<{ isADBEnabled: boolean; }>
+```
+
+Returns whether ADB is enabled in user's device or not
+
+**Returns:** <code>Promise&lt;{ isADBEnabled: boolean; }&gt;</code>
+
+**Since:** 1.2.2
 
 --------------------
 

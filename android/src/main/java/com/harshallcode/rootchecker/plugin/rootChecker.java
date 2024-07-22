@@ -8,12 +8,15 @@ public class rootChecker {
         return value;
     }
 
-    public int isEmulatorPresent(int value) {
+    public boolean isEmulatorPresent(boolean value) {
         return value;
     }
 
     public int getCpuArchitecture(int value) {
         return value;
     }
+
     public int openDeveloperSetting(int value){return value;}
+
+    public int isADBEnabled(int value){return value;}
 }

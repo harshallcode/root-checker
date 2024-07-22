@@ -9,24 +9,9 @@ import Capacitor
 public class rootCheckerPlugin: CAPPlugin {
     private let implementation = rootChecker()
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
+    @objc func checkRoot(_call: CAPPluginCall) {
         call.resolve([
-            "value": implementation.echo(value)
+            "isRooted": false
         ])
-    }
-    @objc func checkRoot() {
-        try {
-            java.util.Scanner s = new java.util.Scanner(
-                Runtime.getRuntime().exec(new String[] { "/system/bin/su", "-c", "cd / && ls" }).getInputStream()
-            )
-                .useDelimiter("\\A");
-            call.resolve(!(s.hasNext() ? s.next() : "").equals(""));
-        } catch (IOException e) {
-            e.printStackTrace();
-            
-        }
-        // return false;
-        call.resolve(false)
     }
 }

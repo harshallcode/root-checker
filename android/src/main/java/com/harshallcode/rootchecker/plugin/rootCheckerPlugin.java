@@ -28,7 +28,7 @@ import java.util.Scanner;
 @CapacitorPlugin(name = "rootChecker")
 public class rootCheckerPlugin extends Plugin {
 
-   private final rootChecker implementation = new rootChecker();
+    private final rootChecker implementation = new rootChecker();
     static final String[] pathsThatShouldNotBeWritable = {
             "/system",
             "/system/bin",
@@ -146,8 +146,9 @@ public class rootCheckerPlugin extends Plugin {
     public void isDeveloperModeEnable(PluginCall call)  {
         JSObject ret = new JSObject();
         int devOptionsStatus = Settings.Secure.getInt(getContext().getContentResolver(),
-        Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0);
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0);
         boolean isEnabled = (devOptionsStatus == 1);
+//        isEnabled=false;
         ret.put("isEnabled", isEnabled);
         call.resolve(ret);
     }
@@ -181,5 +182,14 @@ public class rootCheckerPlugin extends Plugin {
     public void openDeveloperSetting(PluginCall call) {
         startActivity(getContext(),new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS),null);
         call.resolve();
+    }
+
+    @PluginMethod()
+    public void isADBEnabled(PluginCall call) {
+        JSObject ret = new JSObject();
+        int enabled = Settings.Global.getInt(getContext().getContentResolver(), Settings.Global.ADB_ENABLED, 0);
+//        enabled=0;
+        ret.put("isADBEnabled", enabled==1);
+        call.resolve(ret);
     }
 }

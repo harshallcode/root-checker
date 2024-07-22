@@ -29,4 +29,11 @@ export interface rootCheckerPlugin {
    * @since 1.2.0
    */
   openDeveloperSetting(): Promise<void>;
+
+  /**
+   * Returns whether ADB is enabled in user's device or not
+   *
+   * @since 1.2.2
+   */
+    isADBEnabled(): Promise<{ isADBEnabled: boolean }>;
 }
