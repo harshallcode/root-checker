@@ -30,13 +30,13 @@ public class rootCheckerPlugin extends Plugin {
 
     private final rootChecker implementation = new rootChecker();
     static final String[] pathsThatShouldNotBeWritable = {
+            "/etc",
+            "/sbin",
             "/system",
             "/system/bin",
             "/system/sbin",
             "/system/xbin",
             "/vendor/bin",
-            "/sbin",
-            "/etc",
     };
 
     @PluginMethod()
@@ -53,8 +53,31 @@ public class rootCheckerPlugin extends Plugin {
     }
 
     private static boolean checkRootMethod2() {
-        String[] paths = {"/system/app/Superuser.apk", "/sbin/su", "/system/bin/su", "/system/xbin/su", "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
-                "/system/bin/failsafe/su", "/data/local/su", "/su/bin/su"};
+        String[] paths = {
+                    "/data/adb/magisk",
+                    "/data/adb/magisk.img"
+                    "/data/local/bin/su",
+                    "/data/local/su",
+                    "/data/local/xbin/su",
+                    "/sbin/.magisk",
+                    "/sbin/magisk",
+                    "/sbin/su",
+                    "/sbin/su",
+                    "/su/bin/su",
+                    "/system/app/SuperSU.apk",
+                    "/system/app/Superuser.apk",
+                    "/system/app/Superuser.apk",
+                    "/system/bin/.ext/.su",
+                    "/system/bin/failsafe/su",
+                    "/system/bin/su",
+                    "/system/bin/su",
+                    "/system/etc/init.d/99SuperSUDaemon",
+                    "/system/sd/xbin/su",
+                    "/system/xbin/daemonsu",
+                    "/system/xbin/su",
+                    "/system/xbin/su",
+                    "/system/xbin/supolicy",
+                };
         for (String path : paths) {
             if (new File(path).exists()) return true;
         }
