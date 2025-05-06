@@ -19,6 +19,7 @@ npx cap sync
 * [`getCpuArchitecture()`](#getcpuarchitecture)
 * [`openDeveloperSetting()`](#opendevelopersetting)
 * [`isADBEnabled()`](#isadbenabled)
+* [`checkFridaPresence()`](#checkfridapresence)
 
 </docgen-index>
 
@@ -109,6 +110,21 @@ Returns whether ADB is enabled in user's device or not
 **Returns:** <code>Promise&lt;{ isADBEnabled: boolean; }&gt;</code>
 
 **Since:** 1.2.2
+
+--------------------
+
+
+### checkFridaPresence()
+
+```typescript
+checkFridaPresence() => Promise<{ isFridaDetected: boolean; }>
+```
+
+Returns whether Frida script is being executed in user's device or not
+
+**Returns:** <code>Promise&lt;{ isFridaDetected: boolean; }&gt;</code>
+
+**Since:** 1.3.3
 
 --------------------
 

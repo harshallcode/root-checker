@@ -1,9 +1,8 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { rootCheckerPlugin } from './definitions';
+import type { RootCheckerPlugin } from './definitions';
 
-const rootChecker = registerPlugin<rootCheckerPlugin>('rootChecker', {});
+const RootChecker = registerPlugin<RootCheckerPlugin>('RootChecker', {});
 
 export * from './definitions';
-export { rootChecker };
-
+export { RootChecker };

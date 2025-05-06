@@ -19,16 +19,20 @@ import com.scottyab.rootbeer.util.QLog;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 
-@CapacitorPlugin(name = "rootChecker")
-public class rootCheckerPlugin extends Plugin {
+@CapacitorPlugin(name = "RootChecker")
+public class RootCheckerPlugin extends Plugin {
 
-    private final rootChecker implementation = new rootChecker();
+    private final RootChecker implementation = new RootChecker();
     static final String[] pathsThatShouldNotBeWritable = {
             "/etc",
             "/sbin",
@@ -54,14 +58,13 @@ public class rootCheckerPlugin extends Plugin {
 
     private static boolean checkRootMethod2() {
         String[] paths = {
+                    "/data/adb/magisk.img",
                     "/data/adb/magisk",
-                    "/data/adb/magisk.img"
                     "/data/local/bin/su",
                     "/data/local/su",
                     "/data/local/xbin/su",
                     "/sbin/.magisk",
-                    "/sbin/magisk",
-                    "/sbin/su",
+                    "/sbin/magisk",//
                     "/sbin/su",
                     "/su/bin/su",
                     "/system/app/SuperSU.apk",
@@ -70,11 +73,10 @@ public class rootCheckerPlugin extends Plugin {
                     "/system/bin/.ext/.su",
                     "/system/bin/failsafe/su",
                     "/system/bin/su",
-                    "/system/bin/su",
                     "/system/etc/init.d/99SuperSUDaemon",
+                    "/system/sbin/su",
                     "/system/sd/xbin/su",
                     "/system/xbin/daemonsu",
-                    "/system/xbin/su",
                     "/system/xbin/su",
                     "/system/xbin/supolicy",
                 };
@@ -215,4 +217,71 @@ public class rootCheckerPlugin extends Plugin {
         ret.put("isADBEnabled", enabled==1);
         call.resolve(ret);
     }
+
+    @PluginMethod()
+    public void checkFridaPresence(PluginCall call) {
+        JSObject ret = new JSObject();
+        ret.put("isFridaDetected",  detectNamedPipes() || detectSuspiciousThreads() || scanPorts());
+        call.resolve(ret);
+    }
+
+    public static boolean detectNamedPipes() {
+        String[] suspiciousPipes = { "frida", "gadget", "agent" };
+        File dir = new File("/proc/self/fd");
+
+        for (File file : Objects.requireNonNull(dir.listFiles())) {
+            String link = file.getAbsolutePath();
+            for (String pipe : suspiciousPipes) {
+                if (link.contains(pipe)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+    public static boolean detectSuspiciousThreads() {
+        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        for (Thread thread : threadSet) {
+            String threadName = thread.getName();
+            if (threadName.contains("frida") || threadName.contains("gadget") || threadName.contains("agent")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean scanPorts() {
+        String host= "localhost";
+        int flag=0;
+        int[] suspiciousPorts = {27042, 27043}; // Common Frida ports
+        for (int port : suspiciousPorts) {
+            try (Socket socket = new Socket(host, port)) {
+                return true;
+            } catch (IOException ignored) {
+
+            }
+        }
+        return false;
+    }
+
+    public static boolean scanStrings() {
+        String[] suspiciousStrings = {"frida", "gadget", "agent"};
+        try (BufferedReader reader = new BufferedReader(new FileReader("/proc/self/maps"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                for (String str : suspiciousStrings) {
+                    if (line.contains(str)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException ignored) {
+
+        }
+        return false;
+    }
+
 }

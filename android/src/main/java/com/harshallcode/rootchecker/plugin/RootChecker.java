@@ -1,6 +1,6 @@
 package com.harshallcode.rootchecker.plugin;
 
-public class rootChecker {
+public class RootChecker {
     public boolean checkRoot(boolean value) {
         return value;
     }
@@ -18,5 +18,7 @@ public class rootChecker {
 
     public int openDeveloperSetting(int value){return value;}
 
-    public int isADBEnabled(int value){return value;}
+    public boolean isADBEnabled(boolean value){return value;}
+
+    public boolean checkFridaPresence(boolean value){return value;}
 }

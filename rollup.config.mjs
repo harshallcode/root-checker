@@ -4,7 +4,7 @@ export default {
     {
       file: 'dist/plugin.js',
       format: 'iife',
-      name: 'capacitorrootChecker',
+      name: 'capacitorRootChecker',
       globals: {
         '@capacitor/core': 'capacitorExports',
       },

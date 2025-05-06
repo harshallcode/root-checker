@@ -1,4 +1,4 @@
-export interface rootCheckerPlugin {
+export interface RootCheckerPlugin {
   /**
    * Get information about device root status
    *
@@ -35,5 +35,12 @@ export interface rootCheckerPlugin {
    *
    * @since 1.2.2
    */
-    isADBEnabled(): Promise<{ isADBEnabled: boolean }>;
+  isADBEnabled(): Promise<{ isADBEnabled: boolean }>;
+
+  /**
+   * Returns whether Frida script is being executed in user's device or not
+   *
+   * @since 1.3.3
+   */
+  checkFridaPresence(): Promise<{ isFridaDetected: boolean }>;
 }
