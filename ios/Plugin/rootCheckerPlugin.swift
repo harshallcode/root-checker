@@ -1,17 +1,20 @@
 import Foundation
 import Capacitor
+#import <DTTJailbreakDetection/DTTJailbreakDetection.h>
 
-/**
- * Please read the Capacitor iOS Plugin Development Guide
- * here: https://capacitorjs.com/docs/plugins/ios
- */
 @objc(RootCheckerPlugin)
 public class RootCheckerPlugin: CAPPlugin {
     private let implementation = RootChecker()
 
-    @objc func checkRoot(_call: CAPPluginCall) {
-        call.resolve([
-            "isRooted": false
-        ])
+    @objc func checkRoot(_ call: CAPPluginCall) {
+        if ([DTTJailbreakDetection isJailbroken]) {
+            call.resolve([
+                "isRooted": true
+            ])
+        } else {
+            call.resolve([
+                "isRooted": false
+            ])
+        }
     }
 }
